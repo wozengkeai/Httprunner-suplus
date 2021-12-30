@@ -1,0 +1,27 @@
+config:
+    name: SUM033:人员A查看详情费用额本月计划-有计划费用率-当前业绩小于计划业绩
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(sumphone2)}
+
+teststeps:
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone1
+
+-   name: 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    extract:
+        districtId: content.data.user.districts.0.users.0.id
+
+-   name: 进入详情
+    api: api/app_api/firstPage/detail.yml
+    variables:
+        districtId: $districtId
+        year: 2020
+        month: 2
+    validate:
+        - eq:
+            - content.data.summary.cost.plan
+            - '0.45'

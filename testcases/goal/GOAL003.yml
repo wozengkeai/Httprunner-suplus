@@ -1,0 +1,39 @@
+config:
+    name: GOAL003:业务员导入常规+机会业绩-查看个人档案
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(ywyphone5)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 主管理员登录系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+#-   name: 导入业绩源
+#    api: api/manage_api/common_api/import.yml
+#    variables:
+#        filepath: testcases_excel/source_data.xlsx
+#        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_SOURCE
+
+-   name: 查看个人业绩档案
+    api: api/manage_api/goal_api/achievements_file.yml
+    extract:
+        data: content.data
+    validate:
+      - eq:
+          - ${get_childAchievements($data,$uid,regularPerformance)}
+          - 300.00
+      - eq:
+          - ${get_childAchievements($data,$uid,internalChancePerformance)}
+          - 300.00
+      - eq:
+          - ${get_childAchievements($data,$uid,externalChancePerformance)}
+          - 300.00
+      - eq:
+          - ${get_childAchievements($data,$uid,regionalAchievements)}
+          - 900.00
+      - eq:
+          - ${get_childAchievements($data,$uid,personalAchievements)}
+          - 900.00

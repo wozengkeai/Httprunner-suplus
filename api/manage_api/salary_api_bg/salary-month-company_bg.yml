@@ -1,0 +1,21 @@
+name: 管理层收入
+base_url: ${ENV(base_manage_url)}
+variables:
+    companyId: 359
+    year: ${get_year()}
+    month: ${get_month()}
+
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    params:
+        companyId: $companyId
+        year: $year
+        month: $month
+    method: GET
+    url: /salary-month-companyId
+validate:
+-   eq:
+    - content.msg
+    - ok

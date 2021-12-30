@@ -1,0 +1,20 @@
+name: 年度业绩目标列表
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 359
+    isTree: 1
+    year: 2020
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        companyId: $companyId
+        isTree: $isTree
+        year: $year
+    method: GET
+    url: /sale-goal-setting
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

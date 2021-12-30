@@ -1,0 +1,20 @@
+config:
+    name: 查看业务员数据
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(ywyphone1)}
+
+teststeps:
+-   name: $phone 登录
+    testcase: testcases/common/login_testcases.yml
+    validate:
+      - eq:
+          - content.msg
+          - ok
+
+-   name: $phone 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    validate:
+      - eq:
+          - content.data.user.districts.0.users.0.id
+          - ${get_districtsid_from_database(359,$phone)}

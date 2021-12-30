@@ -1,0 +1,46 @@
+name: 合同更新
+base_url: ${ENV(base_contract_bg_url)}
+variables:
+    companyId: 359
+    contractYear: 2020
+    partyAUserName: '甲方用户名称'
+    partyBUserId: 3742767231238144
+    name: '合同名称'
+    number: ${get_randomstring(6)}
+    signingDate: '2020-01-10'
+    startDate: '2020-01'
+    endDate: '2020-12'
+    totalSalesTarget: 24
+    goalType: 3
+    goalContent: '[]'
+    contractPdfLink: ''
+    isVoid: 0
+    id: 88
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+    json:
+        companyId: $companyId
+        contractYear: $contractYear
+        partyAUserName: $partyAUserName
+        partyBUserId: $partyBUserId
+        name: $name
+        number: $number
+        signingDate: $signingDate
+        startDate: $startDate
+        endDate: $endDate
+        totalSalesTarget: $totalSalesTarget
+        goalType: $goalType
+        goalContent: $goalContent
+        contractPdfLink: $contractPdfLink
+        isVoid: $isVoid
+        remarks: '88'
+    method: PUT
+    url: /contracts/$id
+validate:
+-   eq:
+    - content.msg
+    - ok

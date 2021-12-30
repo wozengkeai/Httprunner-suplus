@@ -1,0 +1,27 @@
+name: APP客户概况费用详情
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    year: 2020
+    month: 12
+    customerId: 3905271874371584
+    lastId: 0
+    costId: 0
+    pageSize: 10
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        year: $year
+        month: $month
+        customerId: $customerId
+        lastId: $lastId
+        costId: $costId
+        pageSize: $pageSize
+    method: POST
+    url: /customer-cost/list
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

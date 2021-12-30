@@ -1,0 +1,37 @@
+name: calculator/income/fetch
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+    districtId: 26
+    month: 5
+    year: 2021
+    uid: 3247228580772352
+request:
+    headers:
+        Content-Type: application/json
+        User-Agent: abilityIOSAppstore/1180010 CFNetwork/1209 Darwin/20.2.0
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.maimaimai.abilityIOS
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '0'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.18.0
+    json:
+        districtId: $districtId
+        month: $month
+        year: $year
+        uid: $uid
+    method: POST
+    url: /v1/sale/tool/calculator/income/fetch
+validate:
+-   eq:
+    - status_code
+    - 200
+-   eq:
+    - content.msg
+    - ok

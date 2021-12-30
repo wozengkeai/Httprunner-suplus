@@ -1,0 +1,100 @@
+name: 审批设置/approve/update
+base_url: ${ENV(base_suplus_url)}
+variables: {}
+request:
+    headers:
+#        Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9zdXBsdXMtd2ViLWdhdGV3YXktdGVzdC5mam1haW1haW1haS5jb21cL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjA5NzIzOTg3LCJleHAiOjE2MDk3MzQ3ODcsIm5iZiI6MTYwOTcyMzk4NywianRpIjoiclljc01Bc3VVanV3MDFlWiIsInN1YiI6MzI1MjEyNTE0MzY1Njk2MCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsImNvbXBhbnlJZCI6MzgyLCJuaWNrbmFtZSI6Inp4eTY2IiwicGhvbmUiOiIxMzgwMDAwMDAwMSIsInVpZCI6MzI1MjEyNTE0MzY1Njk2MH0.FbWqCFSFdixBDrc4Q1Gl61-yzHJT5X3tnFi_7tUarPc
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        appDesc: ''
+        appName: 业务订单
+        approveFlow:
+        -   approveId: 1624
+            approveStep: 0
+            approveType: 1
+            approveUsers:
+            -   ccType: 1
+                name: 薪资51
+                parentIds: []
+                uid: 3262795819403776
+            -   ccType: 1
+                name: 薪资50
+                parentIds: []
+                uid: 3262795775635968
+            approveWay: 2
+            createTime: '1599014649171'
+            id: 182
+            isDefault: 1
+            roleId: 0
+            roleName:
+            type: 1
+            updateTime: '1608882051283'
+        -   approveId: 1624
+            approveStep: 0
+            approveType: 2
+            approveUsers:
+            -   ccType: 1
+                name: 薪资50
+                parentIds: []
+                uid: 3262795775635968
+            -   ccType: 1
+                name: 薪资51
+                parentIds: []
+                uid: 3262795819403776
+            -   ccType: 1
+                name: 薪资53
+                parentIds: []
+                uid: 3262947957283328
+            -   ccType: 1
+                name: 薪资52
+                parentIds: []
+                uid: 3262947924314624
+            approveWay: 2
+            createTime: '1605854060069'
+            id: 188
+            isDefault: 1
+            roleId: 0
+            roleName:
+            type: 1
+            updateTime: '1608883643908'
+        approveStatus:
+            addApproveStatus: 1
+            editApproveStatus: 1
+        companyId: 382
+        createTime: '1587951730785'
+        createUid: 0
+        deleteFlowIds: []
+        distinctType: 1
+        fromMatRate: 0
+        toMatRate: 5
+        id: 1624
+        matShowRule: 2
+        matSourceIds:
+            - 83
+        noticeType: 2
+        prodShowRule: 2
+        prodSourceIds:
+            - 83
+        relativeSourceIds: []
+        saleTypeIds:
+            - 1
+            - 2
+            - 3
+        sign: ORDER
+        status: 1
+        suggestion: 1
+        suggestionTip:
+        treeSourceIds:
+        type: 2
+        updateTime: '1608883643904'
+        updateUid: 3262947924314624
+    method: POST
+    url: /approve/update
+validate:
+-   eq:
+    - content.msg
+    - ok

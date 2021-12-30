@@ -1,0 +1,23 @@
+name: APP业绩详情订单详情
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    expressNo:
+    dataType: 0
+    expressDate: 3905271874371584
+    productId:
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        expressNo: $expressNo
+        dataType: $dataType
+        expressDate: $expressDate
+        productId: $productId
+    method: POST
+    url: /sale-detail/order-list
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

@@ -1,0 +1,41 @@
+config:
+    name: 设置APP登陆完整权限-禁用人员-APP登陆权限
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(qxphone1)}
+
+
+teststeps:
+-   name: 设置登陆APP完整权限
+    testcase: testcases/common/COM001.yml
+
+
+-   name: 登陆APP
+    testcase: testcases/common/login_testcases.yml
+    variables:
+      phone: $phone
+
+-   name: 主管理员登录企业平台
+    testcase: testcases/common/business_login_testcases.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 禁用人员
+    api: api/manage_api/business_api/forbidUser.yml
+    variables:
+        status: 2
+
+-   name: 刷新页面
+    api: api/app_api/firstPage/data.yml
+    validate:
+      -  eq:
+           - content.code
+           - 4141
+      - eq:
+          - content.msg
+          - accessToken过期或无效，需要进行重新获取令牌
+
+-   name: 启用人员
+    api: api/manage_api/business_api/forbidUser.yml
+    variables:
+        status: 1

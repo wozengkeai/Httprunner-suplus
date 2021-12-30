@@ -1,0 +1,61 @@
+config:
+    name: XZ006:新增薪资组-新增增利提成-导入业绩源-查看工资
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(sourcephone2)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 主管理员登录系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+#-   name: 新增薪资组
+#    api: api/manage_api/salary_api/salary_group_save.yml
+#    variables:
+#        uids:
+#            - departmentId: 0
+#              uid: $uid
+#    extract:
+#      - salaryGroupId: content.data.id
+
+#-   name: 初始化当月薪资
+#    api: api/manage_api/salary_api/salary-data-init.yml
+
+-   name: 查看薪资档案列表
+    api: api/manage_api/salary_api/salary_record_list.yml
+    variables:
+        uids: $uid
+    extract:
+          profitPushMoney: content.data.gridResult.lists.0.profitPushMoney
+
+
+#-   name: 设置收入规则
+#    api: api/manage_api/salary_api/set_salary_group_income_rule.yml
+#    variables:
+#        salaryGroupId: $salaryGroupId
+#        pushRate: 10
+#        type: 2
+
+
+
+-   name: 初始化当月薪资
+    api: api/manage_api/salary_api/salary-data-init.yml
+
+-   name: 查看工资表
+    api: api/manage_api/salary_api/salary_month_list.yml
+    variables:
+        salaryGroupId: 2002
+#    extract:
+#        profitPushMoney: content.data.gridResult.lists.0.profitPushMoney
+    validate:
+#      - eq:
+#            - content.data.gridResult.lists.0.total
+#            - $total
+#      - eq:
+#            - ${str_to_float($profitPushMoney)}
+#            - 0
+      - eq:
+          - content.data.gridResult.lists.0.profitPushMoney
+          - $profitPushMoney

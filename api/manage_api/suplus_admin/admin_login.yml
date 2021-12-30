@@ -1,0 +1,20 @@
+name: 总管理后台登陆/auth/login
+base_url: ${ENV(base_url)}
+variables: {}
+teardown_hooks:
+    - ${teardown_hook_get_admin_accesstoken($response)}
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        password: secret
+        username: wangjian@qq.com
+    method: POST
+    url: http://suplus-admin-gateway-test.fjmaimaimai.com/auth/login
+validate:
+-   eq:
+    - content.msg
+    - ok

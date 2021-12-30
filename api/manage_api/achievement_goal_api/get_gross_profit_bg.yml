@@ -1,0 +1,18 @@
+name: 个人毛利
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 359
+    expressMonth: '2020/11'
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        companyId: $companyId
+        expressMonth: $expressMonth
+    method: POST
+    url: /personal-profit/get-gross-profit
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

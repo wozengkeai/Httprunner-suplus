@@ -1,0 +1,21 @@
+name: 薪资档案列表/salary-record/list
+base_url: ${ENV(base_suplus_url)}
+variables:
+    uids:
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        pageNumber: 1
+        pageSize: 10
+        uids: $uids
+    method: POST
+    url: salary-manage/salary-record/list
+validate:
+-   eq:
+    - content.msg
+    - ok

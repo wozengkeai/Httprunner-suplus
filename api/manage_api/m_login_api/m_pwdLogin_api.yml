@@ -1,0 +1,21 @@
+name: 账号登录:直接从素+平台登录不走企业平台
+base_url: ${ENV(base_suplus_url)}
+variables:
+    phone: ${ENV(adminphone)}
+    password: ${ENV(password)}
+    msg: ok
+teardown_hooks:
+    - ${teardown_hook_get_m_accesstoken($response)}
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.12.3
+    json:
+        pwd: $password
+        username: $phone
+    method: POST
+    url: /auth/pwdLogin
+validate:
+-   eq:
+    - content.msg
+    - $msg

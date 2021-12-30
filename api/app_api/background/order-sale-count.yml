@@ -1,0 +1,21 @@
+name: APP业绩详情订单记录-月度累计业绩
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    year: 2020
+    month: 12
+    customerId: 3905271874371584
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        year: $year
+        month: $month
+        customerId: $customerId
+    method: POST
+    url: /sale-detail/order-sale-count
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

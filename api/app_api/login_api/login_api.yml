@@ -1,0 +1,36 @@
+name: 账号登录:/v1/auth/loginModule
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    access_token: ''
+    sign: ${make_sign($currtime, $uuid,$access_token)}
+    grantType: signInPassword
+    phone: ${ENV(phone)}
+    password: 7c4a8d09ca3762af61e59520943dc26494f8941b
+    code: ''
+    msg: ok
+#teardown_hooks:
+#    - ${teardown_hook_get_authcode($response)}
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.12.3
+        X-MMM-AccessToken: $access_token
+        X-MMM-AppName: com.mmm.ability
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 0.9.0
+    json:
+        clientId: lks3Z8Ncn2j
+        cuid: $cuid
+        credentials: $credentials
+    method: POST
+    url: /v1/auth/loginModule
+validate:
+-   eq:
+    - content.msg
+    - $msg

@@ -1,0 +1,35 @@
+name: /v1/auth/authorize
+base_url: ${ENV(base_url)}
+variables:
+    credentials: 2f9fb60d8cd21c36765ffb4c04a86f350e1207f8c944f233b58a7b9f692428b19cb63517
+    cuid: 3670871974838272
+#    muid: ${get_muid($companyData,$cid)}
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    access_token: ''
+    sign: ${make_sign($currtime, $uuid,$access_token)}
+    cid: 359
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/4.2.2
+        X-MMM-AccessToken: ''
+        X-MMM-AppName: com.mmm.ability.debug
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.7.0
+    json:
+        cid: $cid
+        clientId: lks3Z8Ncn2j
+        credentials: $credentials
+        cuid: $cuid
+        muid: ${get_muid($companyData,$cid)}
+    method: POST
+    url: /v1/auth/authorize
+validate:
+-   eq:
+    - content.msg
+    - ok

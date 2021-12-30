@@ -1,0 +1,17 @@
+name: 获取发货单号
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 359
+
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        companyId: $companyId
+    method: POST
+    url: /sale-source-data/get-express-no
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

@@ -1,0 +1,24 @@
+name: 禁用人员/business/forbidUser
+base_url: ${ENV(base_business_url)}
+variables:
+    ids:
+    - 3257268625388288
+    status: 1
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        Sec-Fetch-Mode: cors
+        Sec-Fetch-Site: same-site
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        ids: $ids
+        status: $status
+    method: POST
+    url: /business/forbidUser
+validate:
+-   eq:
+    - content.msg
+    - ok

@@ -1,0 +1,29 @@
+config:
+    name: CAL004:业绩收入页面-客户业绩/利润
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        uid: ${ENV(uid_96)}
+#        uid: 3259949165191936
+        phone1: ${get_phone($uid)}
+        companyId: 1
+
+
+teststeps:
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone1
+        cid: 1
+
+
+
+-   name: 进入计算器模拟无方案页面
+    api: api/app_api/calculator/fetch.yml
+    variables:
+        districtId: 96
+    extract:
+        data: content.data
+    validate:
+      - eq:
+          - content.msg
+          - ${checkCorrespond($data,$uid)}

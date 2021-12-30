@@ -1,0 +1,29 @@
+config:
+    name: 企业平台勾选APP菜单-子系统菜单+高级权限-APP登陆权限
+    base_url: ${ENV(base_url)}
+
+
+
+teststeps:
+-   name: 设置登陆APP完整权限
+    testcase: testcases/common/COM001.yml
+    variables:
+        phone1: ${ENV(qxphone1)}
+        uid: ${get_uid_from_database($phone1)}
+
+
+-   name: 登陆APP
+    testcase: testcases/common/COM002.yml
+    variables:
+        phone: ${ENV(qxphone1)}
+
+-   name: 获取用户数据
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    extract:
+        data: content.data
+    validate:
+    -   ne:
+            - ${get_isNull($data,user,districts)}
+            - 0
+
+

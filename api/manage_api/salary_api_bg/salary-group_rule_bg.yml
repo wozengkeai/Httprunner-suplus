@@ -1,0 +1,24 @@
+name: 配薪规则
+base_url: ${ENV(base_manage_url)}
+variables:
+    companyId: 359
+    year: ${get_year()}
+    month: ${get_month()}
+    salaryGroupIds:
+        - 1999
+
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        companyId: $companyId
+        year: $year
+        month: $month
+        salaryGroupIds: $salaryGroupIds
+    method: POST
+    url: /salary-group-rule
+validate:
+-   eq:
+    - content.msg
+    - ok

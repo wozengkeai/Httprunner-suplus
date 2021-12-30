@@ -1,0 +1,31 @@
+name: 首页数据  /v1/sale/main/data
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+    districtId: 162
+
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/4.2.2
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.tlmanufacture.debug
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.1.1
+    json:
+        districtId: $districtId
+        month: ${get_month()}
+        year: ${get_year()}
+    method: POST
+    url: /v1/sale/main/data
+validate:
+-   eq:
+    - content.msg
+    - ok

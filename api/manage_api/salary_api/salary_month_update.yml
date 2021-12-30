@@ -1,0 +1,37 @@
+name: 工资表调薪/salary-month/update
+base_url: ${ENV(base_suplus_url)}
+variables:
+    basicBonus: 0
+    basicWage: 2000
+    extraText: []
+    id: 111
+    kpiBonus: 300
+    newRake: 0
+    otherBonus: 0
+    professionSubsidy: 500
+    windfall: 0
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        basicBonus: $basicBonus
+        basicWage: $basicWage
+        extraText: $extraText
+        id: $id
+        incrementPushMoney: 0
+        kpiBonus: $kpiBonus
+        newRake: $newRake
+        otherBonus: $otherBonus
+        professionSubsidy: $professionSubsidy
+        profitPushMoney: 0
+        windfall: $windfall
+    method: POST
+    url: /salary-manage/salary-month/update
+validate:
+-   eq:
+    - content.msg
+    - ok

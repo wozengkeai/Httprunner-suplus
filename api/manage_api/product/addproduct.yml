@@ -1,0 +1,51 @@
+name: 增加存货/product/addProduct
+base_url: ${ENV(base_suplus_url)}
+variables:
+    code: A00100000000000000000000000${get_randomstring(3)}
+    name: 鸡翅${get_randomstring(4)}
+#    simpleName:
+#times: 300
+request:
+    headers:
+        Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9zdXBsdXMtd2ViLWdhdGV3YXktdGVzdC5mam1haW1haW1haS5jb21cL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjEyNjY3MDM3LCJleHAiOjE2MTI2Nzc4MzcsIm5iZiI6MTYxMjY2NzAzNywianRpIjoiM3Z5STBaQUZmN3hQdVNqNCIsInN1YiI6MzI0NDU4ODMwNzEyMjk0NCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsImNvbXBhbnlJZCI6MzU5LCJuaWNrbmFtZSI6Ilx1NWMwZlx1NzIzMVx1NTQwY1x1NWI2NiIsInBob25lIjoiMTM3MDAwMDAwMDEiLCJ1aWQiOjMyNDQ1ODgzMDcxMjI5NDR9.lSqfbaxnufmMI1uKWBmtvuNxnr0BfCEjTbIP2CeH2Yg
+        Content-Type: application/json; charset=UTF-8
+        Sec-Fetch-Dest: empty
+        Sec-Fetch-Mode: cors
+        Sec-Fetch-Site: cross-site
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        code: $code
+        codeVersion: 1
+        custom: []
+        imgs: []
+        isRate: 0
+        name: $name
+        productBrand: {}
+        productCategory:
+            id: 74
+        productCategoryId: 74
+        productForm: {}
+        productSeries:
+            id: 78
+        productSeriesId: 78
+        productType:
+            id: 83
+        productTypeId: 83
+        productUnitGroupId: 69
+        productUnitMasterId: 139
+        productZt:
+            id: 52
+        productZtId: 52
+        simpleName: $name
+        spec: 76g
+        status: 1
+        tags: []
+        thumbnail: http://suplus-file-dev.fjmaimaimai.com/upload/image/2021012802315655283.jpg
+    method: POST
+    url: /product/addProduct
+validate:
+-   eq:
+    - content.msg
+    - ok

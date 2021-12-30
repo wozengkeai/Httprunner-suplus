@@ -1,0 +1,21 @@
+name: 企业禁用/company/forbidCompany
+base_url: ${ENV(base_url)}
+variables:
+    id: 359
+    status: 2
+request:
+    headers:
+        Authorization: ${get_admin_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        id: $id
+        status: $status
+    method: POST
+    url: http://suplus-admin-gateway-test.fjmaimaimai.com/company/forbidCompany
+validate:
+-   eq:
+    - content.msg
+    - ok

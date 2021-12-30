@@ -1,0 +1,15 @@
+name: 后台费用登记删除
+base_url: ${ENV(base_background_url)}
+variables:
+    id: 359
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        id: $id
+    method: DELETE
+    url: /user-cost/$id
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

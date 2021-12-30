@@ -1,0 +1,23 @@
+name: APP业绩详情订单记录-按订单产品
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    year: 2020
+    month: 12
+    customerId: 3905271874371584
+    lastId: 0
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        year: $year
+        month: $month
+        customerId: $customerId
+        lastId: $lastId
+    method: POST
+    url: /sale-detail/order-product-list
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

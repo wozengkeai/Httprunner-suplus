@@ -1,0 +1,268 @@
+config:
+    name: login_testcases
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(adminphone)}
+        companyId: 8
+        cid: 8
+#        phone: ${ENV(su_adminphone)}
+#        companyId: 1
+
+teststeps:
+
+##########################管理平台接口########################
+-   name: 主管理员登录系统
+#    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    testcase: testcases/common/business_login_testcases.yml
+#    variables:
+#        phone: ${ENV(opphone)}
+
+-   name: 主管理员登录子系统
+    testcase: testcases/common/m_login_testcases.yml
+#    variables:
+#        phone: ${ENV(adminphone)}
+
+-   name: 导出合集
+    testcase: testcases/common/COM003.yml
+
+-   name: 客户分配列表
+    api: api/manage_api/customer/listAssignment.yml
+
+
+################APP接口#################################
+-   name: $phone 登录
+    testcase: testcases/common/login_testcases.yml
+#    variables:
+#        companyId: 8
+
+-   name: $phone 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    extract:
+      - districts: content.data.user.districts.0.id
+
+-   name: 查看首页
+    api: api/app_api/firstPage/data.yml
+    variables:
+      - districtId: $districts
+    validate:
+      - eq:
+          - content.msg
+          - ok
+
+-   name: 查看详情
+    api: api/app_api/firstPage/detail.yml
+    variables:
+      - districtId: $districts
+    validate:
+      - eq:
+          - content.msg
+          - ok
+
+-   name: 查看客户列表
+    api: api/app_api/customer/customer_list.yml
+    extract:
+        customerId: content.data.items.0.customerId
+
+-   name: 查看客户概况
+    api: api/app_api/customer/customer_summary.yml
+    variables:
+        customerId: $customerId
+
+-   name: 查看客户概况-业绩详情
+    api: api/app_api/customer/customer_performanceData.yml
+    extract:
+        productId: content.data.products.0.id
+    variables:
+        customerId: $customerId
+
+-   name: 查看客户概况-获取业绩详情订单记录
+    api: api/app_api/customer/customer_orderRecord.yml
+    variables:
+        customerId: $customerId
+
+-   name: 查看客户概况-获取业绩详情产品走势
+    api: api/app_api/customer/customer_perfProduct.yml
+    variables:
+        customerId: $customerId
+        productId: $productId
+
+-   name: 查看客户概况-获取合同年份
+    api: api/app_api/customer/customer_contractgetYear.yml
+    variables:
+        customerId: $customerId
+    extract:
+        year: content.data.items.-1
+
+-   name: 查看客户概况-获取合同详情
+    api: api/app_api/customer/customer_contractDetail.yml
+    variables:
+        customerId: $customerId
+        year: $year
+
+-   name: 查看客户概况-费用详情
+    api: api/app_api/customer/customer_costRecord.yml
+    variables:
+        customerId: $customerId
+
+-   name: 查看品项列表-默认
+    api: api/app_api/product/product_list.yml
+    extract:
+        productId: content.data.items.0.id
+
+-   name: 查看品项列表-销售区域仅看自己
+    api: api/app_api/product/product_list.yml
+    variables:
+        listType: 2
+        districtIds:
+            - -1
+
+-   name: 查看品项详情
+    api: api/app_api/product/product_detail.yml
+    variables:
+        productId: $productId
+
+-   name: 品项列表本地搜索
+    api: api/app_api/product/product_search.yml
+
+-   name: 品项列表热门搜索
+    api: api/app_api/product/product_hotsearch.yml
+
+
+
+##########################APP后台接口########################
+-   name: 首页接口
+    api: api/app_api/background/get-dial-data.yml
+
+-   name: 详情接口
+    api: api/app_api/background/get-dial-detail.yml
+
+-   name: 详情接口-当月每日数据
+    api: api/app_api/background/get-daily-detail.yml
+
+-   name: APP详情接口-季度数据
+    api: api/app_api/background/get-quarter-data.yml
+
+-   name: APP客户列表
+    api: api/app_api/background/goal-customers.yml
+
+-   name: APP客户概况
+    api: api/app_api/background/goal-customers-general.yml
+    variables:
+        customerId: $customerId
+
+-   name: APP客户业绩走势
+    api: api/app_api/background/get-month-data.yml
+    variables:
+        customerId: $customerId
+
+-   name: APP产品业绩贡献top5
+    api: api/app_api/background/top-five.yml
+    variables:
+        customerId: $customerId
+
+-   name: APP客户概况费用详情
+    api: api/app_api/background/customer-cost_list.yml
+    variables:
+        customerId: $customerId
+
+-   name: APP客户概况合同详情
+    api: api/app_api/background/get_customer_detail_contract.yml
+    variables:
+        customerId: $customerId
+
+-   name: APP品项列表
+    api: api/manage_api/product_bg/product_list.yml
+#    variables:
+#        companyId: 8
+
+-   name: APP品项详情
+    api: api/manage_api/product_bg/product_detail.yml
+    variables:
+        - productId: $productId
+
+#####################后台接口########################
+-   name: 费用列表
+    api: api/manage_api/cost_goal_api_bg/user_cost_bg.yml
+#    variables:
+#        companyId: 8
+
+-   name: 费用登记
+    api: api/manage_api/cost_goal_api_bg/user_cost_update_bg.yml
+    skipUnless: ${skip_company($companyId)}
+
+-   name: 费用统计列表
+    api: api/manage_api/cost_goal_api_bg/cost_report_forms_bg.yml
+
+-   name: 合同列表
+    api: api/manage_api/contract_bg/contracts_bg.yml
+#    variables:
+#        companyId: 8
+    extract:
+        id: content.data.contracts.0.id
+
+-   name: 合同详情
+    api: api/manage_api/contract_bg/contracts_detail_bg.yml
+    variables:
+        id: $id
+
+#-   name: 新增合同
+#    api: api/manage_api/contract_bg/contracts_add_bg.yml
+#    skipUnless: ${skip_company($companyId)}  #返回false时跳过，如果不是8公司则跳过，skipif则相反
+#    variables:
+#        partyBUserId: 3908561886248960
+
+-   name: 业绩源列表
+    api: api/manage_api/achievement_goal_api/sale_source_data_bg.yml
+
+-   name: 退货单列表
+    api: api/manage_api/achievement_goal_api/return_record_bg.yml
+
+-   name: 个人利润
+    api: api/manage_api/achievement_goal_api/person_profit_bg.yml
+
+-   name: 个人业绩
+    api: api/manage_api/achievement_goal_api/person_perf_bg.yml
+
+-   name: 获取发货单号
+    api: api/manage_api/achievement_goal_api/get_express_no_bg.yml
+
+-   name: 获取个人毛利
+    api: api/manage_api/achievement_goal_api/get_gross_profit_bg.yml
+
+-   name: 月度计划列表
+    api: api/manage_api/set_goal_api_bg/monthly_plan_bg.yml
+
+-   name: 年度业绩目标
+    api: api/manage_api/set_goal_api_bg/sale_goal_setting_bg.yml
+
+-   name: 同期业绩列表
+    api: api/manage_api/set_goal_api_bg/correspond_sale_setting_bg.yml
+
+-   name: 利润率列表
+    api: api/manage_api/set_goal_api_bg/profit_rate_setting_bg.yml
+
+-   name: 费用率列表
+    api: api/manage_api/set_goal_api_bg/cost_rate_setting_bg.yml
+
+-   name: 薪资组列表
+    api: api/manage_api/salary_api_bg/salary-group_bg.yml
+    extract:
+        salaryGroupId: content.data.salaryGroups.0.id
+
+-   name: 配薪规则
+    api: api/manage_api/salary_api_bg/salary-group_rule_bg.yml
+    variables:
+        salaryGroupId:
+            - $salaryGroupId
+
+-   name: 薪资档案列表
+    api: api/manage_api/salary_api_bg/salary-record_bg.yml
+
+-   name: 工资列表
+    api: api/manage_api/salary_api_bg/salary-month_bg.yml
+    variables:
+        salaryGroupId: $salaryGroupId
+
+-   name: 管理层收入
+    api: api/manage_api/salary_api_bg/salary-month-company_bg.yml
+

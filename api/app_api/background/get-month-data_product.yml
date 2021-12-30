@@ -1,0 +1,23 @@
+name: APP客户产品业绩走势
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    year: 2020
+    month: 12
+    customerId: 3905271874371584
+    productId:
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        year: $year
+        month: $month
+        customerId: $customerId
+        productId: $productId
+    method: POST
+    url: /product-sale-trend/get-month-data
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

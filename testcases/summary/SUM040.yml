@@ -1,0 +1,33 @@
+config:
+    name: SUM040:人员A查看详情费用额年度进度-有年度业绩目标有年度费用率目标
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(sumphone2)}
+
+teststeps:
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone1
+
+-   name: 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    extract:
+        districtId: content.data.user.districts.0.users.0.id
+
+-   name: 进入详情
+    api: api/app_api/firstPage/detail.yml
+    variables:
+        districtId: $districtId
+        year: 2020
+        month: 3
+    validate:
+        - eq:
+            - content.data.summary.cost.yearTarget
+            - '1.42'
+        - eq:
+            - content.data.summary.cost.yearTargetDiff
+            - '-1.4'
+        - eq:
+            - content.data.summary.cost.progress
+            - '1.41'

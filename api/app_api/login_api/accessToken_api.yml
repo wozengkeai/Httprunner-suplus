@@ -1,0 +1,32 @@
+name: 获取授权令牌:/v1/auth/accessToken
+base_url: ${ENV(base_url)}
+variables:
+    currtime1: ${make_time()}
+    uuid1: ${make_uuid()}
+    access_token1: ''
+    sign1: ${make_sign($currtime1, $uuid1, $access_token1)}
+#teardown_hooks:
+#    - ${teardown_hook_get_accesstoken($response)}
+#    - ${teardown_hook_get_refreshtoken($response)}
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/4.2.2
+        X-MMM-AccessToken: $access_token1
+        X-MMM-AppName: com.mmm.ability
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign1
+        X-MMM-Timestamp: $currtime1
+        X-MMM-Uuid: $uuid1
+        X-MMM-Version: 1.0.0
+    json:
+        authCode: ${get_authcode()}
+        clientId: lks3Z8Ncn2j
+        clientSecret: gtfhyjukiol3Qncbvmdwe67khh
+    method: POST
+    url: /v1/auth/accessToken
+validate:
+    -   eq:
+        - content.code
+        - 0

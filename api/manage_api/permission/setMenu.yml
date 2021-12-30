@@ -1,0 +1,22 @@
+name: 设置销售单导航APP菜单/enterprise/setMenu
+base_url: ${ENV(base_suplus_url)}
+variables:
+    menuIds:
+        - 157
+    roleId: 942
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        menuIds: $menuIds
+        roleId: $roleId
+    method: POST
+    url: /enterprise/setMenu
+validate:
+-   eq:
+    - content.msg
+    - ok

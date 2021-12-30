@@ -1,0 +1,16 @@
+name: 合同作废
+base_url: ${ENV(base_contract_bg_url)}
+variables:
+    id: 88
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        id: $id
+    method: POST
+    url: /contracts/void
+validate:
+-   eq:
+    - content.msg
+    - ok

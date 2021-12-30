@@ -1,0 +1,28 @@
+name: 客户批量分配
+base_url: ${ENV(base_suplus_url)}
+variables:
+    coSalesmanArr: []
+    customerIds:
+        - 3946559539544064
+        - 3905271874371584
+    salesmanArr:
+        - salesmanId: '3255496269835008'
+          serviceAreaId: 0
+          serviceAreaPid: 179
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        coSalesmanArr: $coSalesmanArr
+        customerIds: $customerIds
+        salesmanArr: $salesmanArr
+    method: POST
+    url: /customer/batchAddAssignment
+validate:
+-   eq:
+    - content.msg
+    - ok

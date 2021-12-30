@@ -1,0 +1,24 @@
+name: 0.7.0品项详情
+base_url: ${ENV(base_background_url)}
+variables:
+    districtId: 0
+    districtPid: 0
+    productId: '3659694170161152'
+    companyId: 8
+
+
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        districtId: $districtId
+        districtPid: $districtPid
+        productId: $productId
+        companyId: $companyId
+    method: POST
+    url: /product-price/get-product-detail
+validate:
+-   eq:
+    - content.msg
+    - 请求成功

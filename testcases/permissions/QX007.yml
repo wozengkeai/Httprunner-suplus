@@ -1,0 +1,34 @@
+config:
+    name: QX007：设置APP登陆完整权限-取消APP高级权限-刷新页面退出
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(qxphone1)}
+
+
+teststeps:
+-   name: 设置登陆APP完整权限
+    testcase: testcases/common/COM001.yml
+
+-   name: 登陆APP
+    testcase: testcases/common/login_testcases.yml
+    variables:
+      phone: $phone
+
+-   name: 取消销售导航高级权限
+    api: api/manage_api/permission/setSuplusStoragePermission.yml
+    variables:
+      checkManage: 0
+      checkSaleman: 0
+
+-   name: 销售导航菜单
+    api: api/manage_api/permission/setMenu.yml
+
+-   name: 刷新页面
+    api: api/app_api/firstPage/data.yml
+    validate:
+      -  eq:
+           - content.code
+           - 4141
+      - eq:
+          - content.msg
+          - accessToken过期或无效，需要进行重新获取令牌

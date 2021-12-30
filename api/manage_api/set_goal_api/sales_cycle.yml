@@ -1,0 +1,23 @@
+name: 设置营销年度 sales-cycle/set
+variables:
+    id: 0
+    startMonth: 1
+    startYear: 1
+base_url: ${ENV(base_suplus_url)}
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        id: $id
+        startMonth: $startMonth
+        startYear: $startYear
+    method: POST
+    url: /target-plan/sales-cycle/set
+validate:
+-   eq:
+    - content.msg
+    - ok

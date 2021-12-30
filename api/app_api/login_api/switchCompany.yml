@@ -1,0 +1,28 @@
+name: 切换公司:/v1/user/switchCompany
+base_url: ${ENV(base_url)}
+variables:
+    currtime1: ${make_time()}
+    uuid1: ${make_uuid()}
+    access_token1: ${get_accesstoken()}
+    sign1: ${make_sign($currtime1, $uuid1, $access_token1)}
+    companyId: 359
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/4.2.2
+        X-MMM-AccessToken: $access_token1
+        X-MMM-AppName: com.mmm.ability
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign1
+        X-MMM-Timestamp: $currtime1
+        X-MMM-Uuid: $uuid1
+        X-MMM-Version: 1.0.0
+    json:
+        companyId: $companyId
+    method: POST
+    url: /v1/user/switchCompany
+validate:
+    -   eq:
+        - content.code
+        - 0

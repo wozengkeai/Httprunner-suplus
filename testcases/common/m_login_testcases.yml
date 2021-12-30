@@ -1,0 +1,23 @@
+config:
+    name: 登陆企业平台
+#    base_url: ${ENV(base_business_url)}
+    variables:
+        phone: ${ENV(adminphone)}
+
+teststeps:
+-   name: $phone 登录企业平台
+    api: api/manage_api/business_api/business_pwdLogin_api.yml
+
+
+-   name: $phone 选择公司
+    api: api/manage_api/business_api/business_anonymousLogin_api.yml
+
+-   name: $phone 获取子系统secret
+    api: api/manage_api/business_api/business_getSingleLoginMenus_api.yml
+    extract:
+        url: content.data.list.0.url
+
+-   name: $phone 登陆子系统
+    api: api/manage_api/m_login_api/m_login_api.yml
+    variables:
+        secret: ${get_secret($url)}

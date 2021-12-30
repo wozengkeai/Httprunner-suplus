@@ -1,0 +1,23 @@
+name: 薪资档案导入 /salary-record-import
+base_url: ${ENV(base_manage_url)}
+variables:
+    uids: 3243451878380288
+    companyId: 350
+    file:
+
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.12.3
+#        Authorization: ${get_m_accesstoken()}
+    json:
+        companyId: $companyId
+        uids: $uids
+        file: $file
+
+    method: POST
+    url: /salary-record-import
+validate:
+-   eq:
+        - content.msg
+        - ok

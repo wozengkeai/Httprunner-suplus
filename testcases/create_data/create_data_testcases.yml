@@ -1,0 +1,32 @@
+config:
+    name: create_data_testcases
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(adminphone)}
+        company_id: 359
+    setup_hooks:
+      - ${setup_hook_clean_db($company_id)}
+
+teststeps:
+-   name: $phone 登录管理平台
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    validate:
+      - eq:
+          - content.msg
+          - ok
+
+-   name: 设置营销年度
+    api: api/manage_api/set_goal_api/sales_cycle.yml
+    variables:
+      id:
+    validate:
+      - eq:
+          - content.msg
+          - ok
+
+-   name: 设置答疑热线
+    api: api/manage_api/set_goal_api/set_hot_line.yml
+    validate:
+      - eq:
+          - content.msg
+          - ok

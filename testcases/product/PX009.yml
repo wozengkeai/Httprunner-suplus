@@ -1,0 +1,41 @@
+config:
+    name: 品项列表页各值校验
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+#        uid: ${ENV(uid_96)}
+        uid_pro: 3252348558521088
+        phone_pro: ${get_phone($uid_pro)}
+        companyId: 382
+        cid: 382
+
+teststeps:
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone_pro
+
+
+#-   name: 获取品项有权限区域
+#    api: api\app_api\product\product_district_list.yml
+#    extract:
+#        items: content.data.items
+
+-   name: 获取品项更多页面
+    api: api/app_api/product/product_list.yml
+    variables:
+        #左上角区域
+        districtId: 0
+        #筛选区域
+        districtIds:
+            - 179
+        sortType: 1
+        dataType: 1
+        #1是首页，2是更多页面
+        listType: 2
+        pageSize: 1000
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - content.msg
+              - ${checkProduct($data,$districtIds,$uid_pro)}

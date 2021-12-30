@@ -1,0 +1,29 @@
+name: 订单accessToken
+base_url: ${ENV(base_url)}
+variables:
+    currtime1: ${make_time()}
+    uuid1: ${make_uuid()}
+    access_token1: ''
+    sign1: ${make_sign($currtime1, $uuid1, $access_token1)}
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.11.0
+        X-MMM-AccessToken: $access_token1
+        X-MMM-AppName: com.mmm.suplus.orders.debug
+        X-MMM-AppProject: SuplusOrders
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign1
+        X-MMM-Timestamp: $currtime1
+        X-MMM-Uuid: $uuid1
+        X-MMM-Version: 1.6.0
+    json:
+        authCode: ${get_authcode()}
+        clientId: 8WAsnB6GcMTv
+        clientSecret: zdG7N77eG75YEiZYiA5DFjPDEzb2DHhG
+    method: POST
+    url: /v1/auth/accessToken
+validate:
+-   eq:
+    - content.msg
+    - ok

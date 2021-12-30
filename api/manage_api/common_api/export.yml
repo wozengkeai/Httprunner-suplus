@@ -1,0 +1,36 @@
+name: fileExport
+variables:
+    type: WORKBENCH_TARGET-PLAN_MANAGE_YEAR-PERFORMANCE
+    where:
+        isTree:
+        year:
+        type:
+        planDate:
+        expressDate:
+        expressMonth:
+        startTime:
+        endTime:
+        costMonth:
+        ids:
+        uids:
+    contenttype: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+base_url: ${ENV(base_suplus_url)}
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        type: $type
+        where: $where
+    method: POST
+    url: /fileExport
+validate:
+-   eq:
+    - status_code
+    - 200
+-   eq:
+    - headers.Content-Type
+    - $contenttype

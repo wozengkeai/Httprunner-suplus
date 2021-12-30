@@ -1,0 +1,57 @@
+config:
+    name: XZ003:新增薪资组-薪资组变动-工资表变动
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(jlphone3)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 登录系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 新增薪资组
+    api: api/manage_api/salary_api/salary_group_save.yml
+    variables:
+        uids:
+            - departmentId: 0
+              uid: $uid
+    extract:
+      - salaryGroupId: content.data.id
+      - name: content.data.name
+
+-   name: 初始化当月薪资
+    api: api/manage_api/salary_api/salary-data-init.yml
+
+-   name: 查看工资表-jlphone2
+    api: api/manage_api/salary_api/salary_month_list.yml
+    variables:
+#        month: 05
+        salaryGroupId: $salaryGroupId
+    extract:
+      - total: content.data.gridResult.lists.0.total
+
+-   name: 编辑薪资组，变更算薪科目
+    api: api/manage_api/salary_api/salary_group_updata.yml
+    variables:
+        id: $salaryGroupId
+        name: $name
+        uids: $uid
+        orders:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+
+-   name: 查看工资表-jlphone2
+    api: api/manage_api/salary_api/salary_month_list.yml
+    variables:
+#        month: 05
+        salaryGroupId: $salaryGroupId
+    validate:
+      - ne:
+          - content.data.gridResult.lists.0.total
+          - $total

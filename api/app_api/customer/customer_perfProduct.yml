@@ -1,0 +1,35 @@
+name: 客户概况-业绩详情产品走势
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+    customerId: '3742767231238144'
+    month: 11
+    year: 2020
+    productId: '3706129730748416'
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/4.2.2
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.tlmanufacture.debug
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.10.0
+    json:
+        customerId: $customerId
+        year: $year
+        month: $month
+        productId: $productId
+    method: POST
+    url: /v1/sale/customer/performance/productChart
+
+validate:
+    - eq:
+        - content.msg
+        - ok

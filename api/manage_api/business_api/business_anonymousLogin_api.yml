@@ -1,0 +1,20 @@
+name: /auth/anonymousLogin
+base_url: ${ENV(base_business_url)}
+variables:
+    companyId: 359
+    msg: ok
+teardown_hooks:
+    - ${teardown_hook_get_m_accesstoken($response)}
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.12.3
+    json:
+        companyId: $companyId
+    method: POST
+    url: /auth/anonymousLogin
+validate:
+-   eq:
+    - content.msg
+    - $msg

@@ -1,0 +1,33 @@
+name: 总后台权限配置
+base_url: ${ENV(base_url)}
+variables:
+    companyId: 359
+    ids:
+      - 3
+      - 6
+      - 7
+      - 8
+      - 13
+    primaryId:
+      - 2
+      - 10
+      - 11
+      - 14
+      - 17
+request:
+    headers:
+        Authorization: ${get_admin_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        companyId: $companyId
+        ids: $id
+        primaryId: $primaryId
+    method: POST
+    url: http://suplus-admin-gateway-test.fjmaimaimai.com/menu/saveMenu
+validate:
+-   eq:
+    - content.msg
+    - ok

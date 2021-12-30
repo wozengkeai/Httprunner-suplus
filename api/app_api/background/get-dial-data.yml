@@ -1,0 +1,25 @@
+name: APP首页接口
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    districtId: 0
+    uid: 0
+    year: 2020
+    month: 12
+    districtPid: 0
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        districtId: $districtId
+        uid: $uid
+        year: $year
+        month: $month
+        districtPid: $districtPid
+    method: POST
+    url: /personal-profit/get-dial-data
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

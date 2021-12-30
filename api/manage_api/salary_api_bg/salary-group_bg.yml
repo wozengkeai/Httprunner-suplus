@@ -1,0 +1,16 @@
+name: 薪资组列表
+base_url: ${ENV(base_manage_url)}
+variables:
+    companyId: 359
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        companyId: $companyId
+    method: GET
+    url: /companys/$companyId/salary-group
+validate:
+-   eq:
+    - content.msg
+    - ok

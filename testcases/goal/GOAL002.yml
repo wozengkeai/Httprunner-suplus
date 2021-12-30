@@ -1,0 +1,33 @@
+config:
+    name: GOAL002:设置本月目标计划-导入自营业绩-查看业绩档案增量业绩
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(ywyphone2)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 主管理员登录系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 导入年度业绩目标
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/year_target.xlsx
+        type: WORKBENCH_TARGET-PLAN_MANAGE_YEAR-PERFORMANCE
+
+#-   name: 导入业绩源
+#    api: api/manage_api/common_api/import.yml
+#    variables:
+#        filepath: testcases_excel/source_data.xlsx
+#        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_SOURCE
+
+-   name: 查看个人业绩档案-增量业绩
+    api: api/manage_api/goal_api/achievements_file.yml
+    extract:
+        data: content.data
+    validate:
+      - ne:
+          - ${get_childAchievements($data,$uid,incrementalAchievements)}
+          - o

@@ -1,0 +1,37 @@
+name: 客户单个分配
+base_url: ${ENV(base_suplus_url)}
+variables:
+    coSalesmanArr:
+        - salesmanId: '3261016505887488'
+          serviceAreaId: 201
+          serviceAreaPid: 184
+        - salesmanId: '3261700406684416'
+          serviceAreaId: 201
+          serviceAreaPid: 184
+    customerId: 3946559539544064
+    isDelete: 0
+    salesmanArr:
+        - salesmanId: '3255496269835008'
+          serviceAreaId: 0
+          serviceAreaPid: 179
+        - salesmanId: '3262947924314624'
+          serviceAreaId: 245
+          serviceAreaPid: 179
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        coSalesmanArr: $coSalesmanArr
+        customerId: $customerId
+        isDelete: $isDelete
+        salesmanArr: $salesmanArr
+    method: POST
+    url: /customer/addAssignment
+validate:
+-   eq:
+    - content.msg
+    - ok

@@ -1,0 +1,13 @@
+config:
+    name: 下单
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(ywyphone1)}
+
+teststeps:
+-   name: 登录订单
+    testcase: testcases/common/login_testcases.yml
+
+
+-   name: 下单
+    api: api/app_api/order/addorder.yml

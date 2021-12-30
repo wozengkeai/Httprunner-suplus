@@ -1,0 +1,190 @@
+config:
+    name: 所有导出合集
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone: ${ENV(adminphone)}
+
+teststeps:
+-   name: 主管理员登录子系统
+    testcase: testcases/common/m_login_testcases.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 年度业绩目标设置导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_YEAR-PERFORMANCE
+        where:
+            isTree: 1
+            year: 2020
+
+-   name: 同期业绩一级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_SAME-PERIOD-PERFORMANCE
+        where:
+            isTree: 1
+            year: 2020
+            type: 1
+
+-   name: 同期业绩二级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_SAME-PERIOD-PERFORMANCE
+        where:
+            isTree: 1
+            year: 2020
+            type: 2
+
+-   name: 利润率导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_PROFIT-MARGIN
+        where:
+            isTree: 1
+            year: 2020
+
+-   name: 费用率导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_EXPENSE-RATIO
+        where:
+            isTree: 1
+            year: 2020
+
+-   name: 同期利润额一级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_SAME-PERIOD-PROFIT
+        where:
+            isTree: 1
+            year: 2020
+            type: 1
+
+-   name: 同期利润额一级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_MANAGE_SAME-PERIOD-PROFIT
+        where:
+            isTree: 1
+            year: 2020
+            type: 2
+
+-   name: 月度计划导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PLAN_MONTH
+        where:
+            planDate: ${get_time(ym1)}
+            type: 2
+
+-   name: 业绩源导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_SOURCE
+        where:
+            expressDate:
+              - ${get_time(ymd)}
+              - ${get_time(ymd)}
+        contenttype: application/zip
+
+-   name: 退货单导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_RETURN-ORDER
+        where:
+            expressDate:
+              - ${get_time(ymd)}
+              - ${get_time(ymd)}
+
+-   name: 个人业绩档案导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_PROFILE
+        where:
+            expressMonth: ${get_time(ym2)}
+
+-   name: 个人利润档案导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_PROFIT
+        where:
+            expressMonth: ${get_time(ym2)}
+
+-   name: 个人毛利额档案一级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_GROSS-MARGIN
+        where:
+            expressMonth: ${get_time(ym2)}
+            type: 1
+
+-   name: 个人毛利额档案二级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_GROSS-MARGIN
+        where:
+            expressMonth: ${get_time(ym2)}
+            type: 2
+
+-   name: 费用登记导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_COST_SALES
+        where:
+            endTime: ${get_time(ymd)}
+            startTime: ${get_time(ymd)}
+        contenttype: application/zip
+
+-   name: 费用统计一级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_COST_COUNT
+        where:
+            costMonth: ${get_time(ym2)}
+            type: 1
+
+-   name: 费用统计二级导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_TARGET-PLAN_COST_COUNT
+        where:
+            costMonth: ${get_time(ym2)}
+            type: 2
+
+-   name: 薪资档案导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_SALARY_MANAGE_FILE
+        where:
+            uids: []
+            ids: []
+        contenttype: text/html; charset=UTF-8
+
+-   name: 业绩报表导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_STATEMENT_PERFORMANCE
+        where:
+            field: 1
+            keyword:
+            time:
+
+-   name: 费用报表导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_STATEMENT_EXPENSE
+        where:
+            field: 1
+            keyword:
+            time:
+
+
+-   name: 客户档案导出
+    api: api/manage_api/common_api/export.yml
+    variables:
+        type: WORKBENCH_CUSTOMER_FILE
+        where:
+            customerType: 1
+            searchName: customerName
+        contenttype: application/csv

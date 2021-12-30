@@ -1,0 +1,23 @@
+name: 初始化接口salary-data-init
+base_url: ${ENV(base_manage_url)}
+variables:
+    companyId: 359
+    month: ${get_time(m1)}
+    year: ${get_time(y)}
+request:
+    headers:
+#        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        companyId: $companyId
+        month: $month
+        year: $year
+    method: POST
+    url: /salary-data-init
+validate:
+-   eq:
+    - content.msg
+    - ok

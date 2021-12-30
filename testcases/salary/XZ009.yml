@@ -1,0 +1,56 @@
+config:
+    name: XZ009:薪资组-无增量提成科目-有增量提成（年末发）规则
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(xzphone3)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 主管理员登录系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+#-   name: 新增薪资组
+#    api: api/manage_api/salary_api/salary_group_save.yml
+#    extract:
+#        salaryGroupId: content.data.id
+#    variables:
+#        uids:
+#            - departmentId: 0
+#              uid: $uid
+#        orders:
+#            - 1
+#            - 2
+#            - 3
+#            - 5
+#            - 6
+#            - 7
+#            - 8
+#            - 9
+
+#-   name: 设置收入规则
+#    api: api/manage_api/salary_api/set_salary_group_income_rule.yml
+#    variables:
+#        salaryGroupId: $salaryGroupId
+#        pushRate: 10
+#        type: 1
+#        childType: 2
+
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone1
+
+-   name: 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+
+
+-   name: 查看首页薪资总收入
+    api: api/app_api/firstPage/data.yml
+    extract:
+        data: content.data
+    validate:
+        - eq:
+            - ${get_isNull($data,incomeData,performanceIncrementIncome)}
+            - 0

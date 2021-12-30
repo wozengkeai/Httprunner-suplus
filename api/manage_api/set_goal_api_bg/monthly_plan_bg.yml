@@ -1,0 +1,22 @@
+name: 月度计划列表
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 359
+    planDate: '202011'
+    isTree: 1
+    type: 2
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    json:
+        companyId: $companyId
+        planDate: $planDate
+        isTree: $isTree
+        type: $type
+    method: GET
+    url: /monthly-plan
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

@@ -1,0 +1,32 @@
+name: 订单登陆/v1/auth/login
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    access_token: ''
+    sign: ${make_sign($currtime, $uuid,$access_token)}
+    phone: ${ENV(phone)}
+    password: 7c4a8d09ca3762af61e59520943dc26494f8941b
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.11.0
+        X-MMM-AccessToken: $access_token
+        X-MMM-AppName: com.mmm.suplus.orders.debug
+        X-MMM-AppProject: SuplusOrders
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.6.0
+    json:
+        clientId: 8WAsnB6GcMTv
+        grantType: signInPassword
+        password: $password
+        phone: $phone
+    method: POST
+    url: /v1/auth/login
+validate:
+-   eq:
+    - content.msg
+    - ok

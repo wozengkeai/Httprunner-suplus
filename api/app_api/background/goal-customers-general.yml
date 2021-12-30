@@ -1,0 +1,27 @@
+name: APP客户概况
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    districtId: 0
+    customerId: 3905271874371584
+    uid: 0
+    year: 2020
+    month: 12
+    districtPid: 0
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        districtId: $districtId
+        customerId: $customerId
+        uid: $uid
+        year: $year
+        month: $month
+        districtPid: $districtPid
+    method: POST
+    url: /goal-customers/general
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

@@ -1,0 +1,33 @@
+config:
+    name: COM001:为角色配置销售导航登陆权限
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(sourcephone2)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 主管理员登录企业平台
+    testcase: testcases/common/business_login_testcases.yml
+#    api: api/manage_api/business_api/business_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+
+-   name: 为角色设置权限
+    api: api/manage_api/business_api/saveAuth.yml
+    variables:
+        authIds:
+            - 1
+            - 20
+        roleId: 130
+
+-   name: 主管理员登录子系统
+    testcase: testcases/common/m_login_testcases.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 设置销售单导航APP菜单
+    api: api/manage_api/permission/setMenu.yml
+
+-   name: 设置销售单导航APP高级
+    api: api/manage_api/permission/setSuplusStoragePermission.yml

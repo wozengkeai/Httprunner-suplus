@@ -1,0 +1,37 @@
+name: 后台费用登记-新增删除
+base_url: ${ENV(base_background_url)}
+variables:
+    districtPid: 25
+    districtParentName: '华北地区'
+    districtId: 26
+    districtName: '河北省'
+    uid: 3246374275117568
+    name: '曾晓燕'
+    companyId: 8
+    operateName:
+    operateUid:
+    costArr:
+        - costId: 14
+          costName: "工资福利"
+          costTime: ${get_time(ymd)}
+          costMoney: 1000
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        districtPid: $districtPid
+        districtParentName: $districtParentName
+        districtId: $districtId
+        districtName: $districtName
+        uid: $uid
+        name: $name
+        companyId: $companyId
+        operateName: $operateName
+        operateUid: $operateUid
+        costArr: $costArr
+    method: POST
+    url: /user-cost
+validate:
+-   eq:
+    - content.msg
+    - '操作成功'

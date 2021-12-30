@@ -1,0 +1,47 @@
+name: 品项列表
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+#    var_access_token: 8EJAySkZS7f3AfPi3p6EHk5Tp7ezTNRA
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+    districtId: 0
+    districtIds:
+        - -1
+    sortType: 1
+    dataType: 1
+    #1是首页，2是更多页面
+    listType: 1
+    pageSize: 10
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/4.2.2
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.tlmanufacture.debug
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.10.0
+    json:
+        tagIds:
+        sortType: $sortType
+        districtId: $districtId
+        dataType: $dataType
+#        saleRange:
+#        grossProfitRange:
+        districtIds: $districtIds
+        lastId: 0
+        pageSize: $pageSize
+        listType: $listType
+
+    method: POST
+    url: /v1/sale/product/list
+validate:
+-   eq:
+    - content.msg
+    - ok
+

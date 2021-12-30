@@ -1,0 +1,23 @@
+name: 客户分配列表
+base_url: ${ENV(base_suplus_url)}
+variables:
+    searchName: customerName
+    searchValue: ''
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        searchName: $searchName
+        searchValue: $searchValue
+        pageNumber: 1
+        pageSize: 10
+    method: POST
+    url: /customer/listAssignment
+validate:
+-   eq:
+    - content.msg
+    - ok

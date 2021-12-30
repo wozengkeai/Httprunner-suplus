@@ -1,0 +1,38 @@
+name: APP客户列表
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 382
+    districtId: 0
+    lastId: 0
+    uid: 0
+    year: 2020
+    month: 12
+    pageSize: 10
+    #0-预警 1-业绩 2-利润
+    sort: 0
+    sortType: 0
+    districtPid: 0
+    startTimeInterval: 0
+    endTimeInterval: 30
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        districtId: $districtId
+        lastId: $lastId
+        uid: $uid
+        year: $year
+        month: $month
+        pageSize: $pageSize
+        sort: $sort
+        sortType: $sortType
+        districtPid: $districtPid
+        startTimeInterval: $startTimeInterval
+        endTimeInterval: $endTimeInterval
+    method: POST
+    url: /goal-customers
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

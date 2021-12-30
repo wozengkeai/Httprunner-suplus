@@ -1,0 +1,32 @@
+name: 额外利润奖励设置/extra-bonus/update
+base_url: ${ENV(base_suplus_url)}
+variables:
+    areas:
+    -   id: 162
+        name: 东北地区
+    extraBonus: 11.25
+    id:
+    productId: 3657912721850368
+    timeHorizon:
+        - '2020-05-04'
+        - '2020-05-05'
+#times:
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        areas: $areas
+        extraBonus: $extraBonus
+        id: $id
+        productId: $productId
+        timeHorizon: $timeHorizon
+    method: POST
+    url: /target-plan/extra-bonus/update
+validate:
+-   eq:
+    - content.msg
+    - ok

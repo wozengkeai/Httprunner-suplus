@@ -1,0 +1,38 @@
+config:
+    name: login_testcases
+    base_url: ${ENV(base_url)}
+    variables:
+#        phone: ${ENV(adminphone)}
+        uid: 3247228580772352
+        uid_pro: 3208804147757824
+        phone1: ${get_phone($uid)}
+        phone_pro: ${get_phone($uid_pro)}
+        companyId: 1
+        cid: 1
+        districtId: 96
+
+testcases:
+#-   name: 小工具
+#    testcase: testcases/calculator/CAL001.yml
+#
+#
+#
+#-   name: 品项
+ #   testcase: testcases/product/PX009.yml
+  #  parameters:
+   #     districtIds: ${get_product_district_db($uid_pro)}
+
+
+-   name: 品项
+    testcase: testcases/product/PX009.yml
+    parameters:
+        districtIds:
+            - [[37]]
+            - [[108]]
+
+#-   name: 品项
+#    testcase: testcases/product/PX009.yml
+#    parameters:
+#        districtIds: ${P(test.csv)}
+
+

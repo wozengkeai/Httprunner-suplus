@@ -1,0 +1,36 @@
+name: 薪资组管理/salary-group/save
+base_url: ${ENV(base_suplus_url)}
+variables:
+    uids:
+        - departmentId: 0
+          uid: 3248637164036608
+    orders:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        name: 薪资组${get_randomstring(3)}
+        orders: $orders
+        periodDay: 1
+        periodMonth: last-month
+        salaryType: 1
+        uids: $uids
+    method: POST
+    url: salary-manage/salary-group/save
+validate:
+-   eq:
+    - content.msg
+    - ok

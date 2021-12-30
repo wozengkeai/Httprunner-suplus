@@ -1,0 +1,26 @@
+name: 订单getUser
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.11.0
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.suplus.orders.debug
+        X-MMM-AppProject: SuplusOrders
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.6.0
+    json: {}
+    method: POST
+    url: /v1/auth/getUser
+validate:
+-   eq:
+    - content.msg
+    - ok

@@ -1,0 +1,30 @@
+name: 品项列表可查看区域
+variables:
+    base_url: ${ENV(base_url)}
+    currtime: ${make_time()}
+    uuid1: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid1, $var_access_token)}
+request:
+    headers:
+        Content-Type: application/json
+        User-Agent: abilityIOSTest/1200000 CFNetwork/1209 Darwin/20.2.0
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.maimaimai.abilityIOS
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '0'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid1
+        X-MMM-Version: 1.20.0
+    json:
+        name: dataItem
+    method: POST
+    url: /v1/sale/common/district/list
+validate:
+-   eq:
+    - status_code
+    - 200
+-   eq:
+    - content.msg
+    - ok

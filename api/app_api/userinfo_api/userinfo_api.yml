@@ -1,0 +1,27 @@
+name: 用户信息：/v2/user/userInfo
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+    msg1: ok
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.12.3
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.ability
+        X-MMM-AppProject: ability
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 0.4.0
+    json:
+    method: POST
+    url: /v2/user/userInfo
+validate:
+    -   eq:
+        - content.msg
+        - $msg1

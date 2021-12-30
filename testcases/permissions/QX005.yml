@@ -1,0 +1,35 @@
+config:
+    name: 设置APP登陆完整权限-禁用企业-APP登陆权限
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(qxphone1)}
+
+
+teststeps:
+-   name: 设置登陆APP完整权限
+    testcase: testcases/common/COM001.yml
+
+
+-   name: 登陆总管理后台
+    api: api/manage_api/suplus_admin/admin_login.yml
+
+-   name: 禁用企业
+    api: api/manage_api/suplus_admin/forbidCompany.yml
+
+-   name: 登陆统一用户中心
+    api: api/app_api/login_api/ucenter_login_api_forcheck.yml
+    variables:
+        phone: $phone
+    validate:
+      - eq:
+          - content.code
+          - 10011
+      - eq:
+          - content.msg
+          - 没有可登录的企业
+
+-   name: 启用企业
+    api: api/manage_api/suplus_admin/forbidCompany.yml
+    variables:
+        id: 359
+        status: 1

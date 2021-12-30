@@ -1,0 +1,24 @@
+name: 工资列表
+base_url: ${ENV(base_manage_url)}
+variables:
+    companyId: 359
+    salaryGroupId: 1999
+    year: ${get_year()}
+    month: ${get_month()}
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+        Accept: application/json
+    params:
+        companyId: $companyId
+        salaryGroupId: $salaryGroupId
+        limit: 20
+        offset: 0
+        year: $year
+        month: $month
+    method: GET
+    url: /companys/$companyId/salary-month
+validate:
+-   eq:
+    - content.msg
+    - ok

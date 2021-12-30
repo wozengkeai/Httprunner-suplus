@@ -1,0 +1,57 @@
+config:
+    name: login_testcases
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(adminphone)}
+        cid: 359
+        companyId: 359
+
+teststeps:
+-   name: $phone 登录统一用户中心
+    api: api/app_api/login_api/ucenter_login_api.yml
+    validate:
+      - eq:
+          - content.msg
+          - ok
+
+-   name: $phone 登录系统
+#    api: api/app_api/login_api/login_api.yml
+    api: api/app_api/login_api/authorize.yml
+    teardown_hooks:
+        - ${teardown_hook_get_authcode($response)}
+    validate:
+        - eq:
+              - content.msg
+              - ok
+
+-   name: $phone 获取accessToken
+    api: api/app_api/login_api/accessToken_api.yml
+    teardown_hooks:
+        - ${teardown_hook_get_accesstoken($response)}
+    validate:
+        - eq:
+              - content.msg
+              - ok
+
+-   name: $phone 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+
+
+-   name: $phone 切换公司
+    api: api/app_api/login_api/switchCompany.yml
+    teardown_hooks:
+        - ${teardown_hook_get_authcode($response)}
+    variables:
+        - companyId: 359
+
+-   name: $phone 获取accessToken
+    api: api/app_api/login_api/accessToken_api.yml
+    teardown_hooks:
+        - ${teardown_hook_get_accesstoken($response)}
+    validate:
+        - eq:
+              - content.msg
+              - ok
+
+-   name: $phone 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml

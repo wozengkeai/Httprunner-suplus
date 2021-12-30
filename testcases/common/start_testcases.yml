@@ -1,0 +1,134 @@
+config:
+    name: start_testcases
+    #清理数据
+    setup_hooks:
+        - ${setup_hook_clean_db(359)}
+        - ${setup_hook_clean_db1(359)}
+        - ${setup_hook_clean_db2(359)}
+    teardown_hooks:
+        - ${sleep(2)}
+
+teststeps:
+-   name: 操作人员登陆系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+
+-   name: 导入薪资档案
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/salary.xlsx
+        type: WORKBENCH_SALARY_MANAGE_FILE
+    validate:
+        - eq:
+              - content.msg
+              - ok
+
+-   name: 创建营销年度
+    api: api/manage_api/set_goal_api/sales_cycle.yml
+
+-   name: 导入产品价格
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/product_price.xlsx
+        type: WORKBENCH_TARGET-PLAN_CONFIG_PRODUCT-PRICE
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入业绩源
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/source_data.xlsx
+        type: WORKBENCH_TARGET-PLAN_PERFORMANCE_SOURCE
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入年度业绩目标
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/year_target.xlsx
+        type: WORKBENCH_TARGET-PLAN_MANAGE_YEAR-PERFORMANCE
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入月度计划
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/plan.xlsx
+        type: WORKBENCH_TARGET-PLAN_PLAN_MONTH
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入利润率
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/profit_rate.xlsx
+        type: WORKBENCH_TARGET-PLAN_MANAGE_PROFIT-MARGIN
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入同期利润额
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/correspond_profit.xlsx
+        type: WORKBENCH_TARGET-PLAN_MANAGE_SAME-PERIOD-PROFIT
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入同期业绩
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/correspond_sale.xlsx
+        type: WORKBENCH_TARGET-PLAN_MANAGE_SAME-PERIOD-PERFORMANCE
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入费用登记
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/cost.xlsx
+        type: WORKBENCH_TARGET-PLAN_COST_SALES
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0
+
+-   name: 导入费用率设置
+    api: api/manage_api/common_api/import.yml
+    variables:
+        filepath: testcases_excel/cost_rate.xlsx
+        type: WORKBENCH_TARGET-PLAN_MANAGE_EXPENSE-RATIO
+    extract:
+        data: content.data
+    validate:
+        - eq:
+              - ${get_isNull($data,fail,tableData)}
+              - 0

@@ -1,0 +1,30 @@
+config:
+    name: GOAL008:区域经理导入常规+机会业绩-查看区域经理个人利润
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(jlphone3)}
+        uid: ${get_uid_from_database($phone1)}
+
+teststeps:
+-   name: 主管理员登录系统
+    api: api/manage_api/m_login_api/m_pwdLogin_api.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 查看个人利润表
+    api: api/manage_api/goal_api/profitFile_month.yml
+    extract:
+        data: content.data
+    validate:
+        - eq:
+            - ${get_m_achievements($data,$uid,regularProfitMargin)}
+            - 40
+        - eq:
+            - ${get_m_achievements($data,$uid,chanceProfitMargin)}
+            - 40
+        - eq:
+            - ${get_m_achievements($data,$uid,regionalProfitMargin)}
+            - 40
+        - eq:
+            - ${get_m_achievements($data,$uid,personalProfitRate)}
+            - 40

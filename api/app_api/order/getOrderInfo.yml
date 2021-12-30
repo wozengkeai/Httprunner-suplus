@@ -1,0 +1,30 @@
+name: getOrderInfo订单详情
+base_url: ${ENV(base_url)}
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    var_access_token: ${get_accesstoken()}
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+    orderId: 4064143421063168
+    uid: 3252348558521088
+request:
+    headers:
+        Content-Type: application/json
+        User-Agent: SuplusTest/170000 CFNetwork/1209 Darwin/20.2.0
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.suplus.orders
+        X-MMM-AppProject: SuplusOrders
+        X-MMM-DeviceType: '0'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.7.0
+    json:
+        orderId: $orderId
+        uid: $uid
+    method: POST
+    url: /v1/order/getOrderInfo
+validate:
+-   eq:
+    - content.msg
+    - ok

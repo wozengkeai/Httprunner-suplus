@@ -1,0 +1,21 @@
+name: 后台费用登记列表
+base_url: ${ENV(base_background_url)}
+variables:
+    companyId: 359
+request:
+    headers:
+        Content-Type: application/json; charset=UTF-8
+    json:
+        companyId: $companyId
+        limit:
+        offset:
+        startCostTime:
+        endCostTime:
+        costId:
+        searchText:
+    method: GET
+    url: /user-cost
+validate:
+-   eq:
+    - content.msg
+    - '请求成功'

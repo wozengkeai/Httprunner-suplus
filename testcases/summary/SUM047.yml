@@ -1,0 +1,30 @@
+config:
+    name: SUM047:人员B查看详情费用率-无目标费用率
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(sumphone3)}
+
+teststeps:
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone1
+
+-   name: 获取userinfo
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    extract:
+        districtId: content.data.user.districts.0.users.0.id
+
+-   name: 进入详情
+    api: api/app_api/firstPage/detail.yml
+    variables:
+        districtId: $districtId
+        year: 2020
+        month: 1
+    validate:
+        - eq:
+            - content.data.summary.cost.ratioYearTarget
+            - '-'
+        - eq:
+            - content.data.summary.cost.ratioYearTargetDiff
+            - '-'

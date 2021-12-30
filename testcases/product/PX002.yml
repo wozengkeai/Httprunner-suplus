@@ -1,0 +1,33 @@
+config:
+    name: PX002:品项首页查看去年热销品项第一的销售额和毛利额
+    base_url: ${ENV(base_suplus_url)}
+    variables:
+        phone1: ${ENV(ywyphone6)}
+        beginTime: 2020-01-01
+        endTime: 2020-12-31
+        uid: ${get_uid_from_database($phone1)}
+teststeps:
+-   name: 人员登录app
+    testcase: testcases/common/login_testcases.yml
+    variables:
+        phone: $phone1
+
+
+-   name: 品项首页
+    api: api/app_api/product/product_list.yml
+    variables:
+        listType: 1
+        districtId: 362
+        dataType: 2
+    extract:
+        productId: content.data.items.0.id
+    validate:
+      - eq:
+          - content.data.items.0.saleSum
+          - ${get_saleSum($productId,$beginTime,$endTime,$districtIds,$uid)}
+      - eq:
+          - content.data.items.0.grossProfitSum
+          - ${get_grossProfitSum($productId,$beginTime,$endTime)}
+      - eq:
+          - content.data.count
+          - ${get_mainProductCount($districtId)}

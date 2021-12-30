@@ -1,0 +1,49 @@
+name: 合同更新
+base_url: ${ENV(base_suplus_url)}
+variables:
+#    companyId: 359
+    contractYear: 2020
+    partyAUserName: '甲方用户名称'
+    partyBUserId: 3742767231238144
+    name: '合同名称'
+    number: ${get_randomstring(6)}
+    signingDate: '2020-01-10'
+    startDate: '2020-01'
+    endDate: '2020-12'
+    totalSalesTarget: 24
+    goalType: 3
+    goalContent: '[]'
+    contractPdfLink: ''
+    contractPdfName: ''
+    isVoid: 0
+    id: 88
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+        id: $id
+        contractYear: $contractYear
+        partyAUserName: $partyAUserName
+        partyBUserId: $partyBUserId
+        name: $name
+        number: $number
+        signingDate: $signingDate
+        startDate: $startDate
+        endDate: $endDate
+        totalSalesTarget: $totalSalesTarget
+        goalType: $goalType
+        goalContent: $goalContent
+        contractPdfLink: $contractPdfLink
+        contractPdfName: $contractPdfName
+        isVoid: $isVoid
+        remarks: '88'
+    method: POST
+    url: /contract/update
+validate:
+-   eq:
+    - content.msg
+    - ok

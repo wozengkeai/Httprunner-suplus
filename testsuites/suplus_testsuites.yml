@@ -1,0 +1,311 @@
+config:
+    name: "suplus测试集"
+
+testcases:
+
+-   name: start....初始化数据库
+    testcase: testcases/common/start_testcases.yml
+
+########################角色权限开始###########################
+-   name: QXC001:查看业务员数据
+    testcase: testcases/permissions/QX001.yml
+
+-   name: QXC002:查看管理层数据
+    testcase: testcases/permissions/QX002.yml
+
+-   name: QXC003:企业平台勾选APP菜单-子系统菜单+高级权限-APP登陆正常
+    testcase: testcases/permissions/QX003.yml
+
+-   name: QXC004:企业平台勾选APP菜单-子系统菜单+高级权限-APP登陆显示未配置页面
+    testcase: testcases/permissions/QX004.yml
+
+-   name: QXC005:设置APP登陆完整权限-禁用企业-APP无可登陆企业
+    testcase: testcases/permissions/QX005.yml
+
+-   name: QXC006:设置APP登陆完整权限-取消APP菜单权限-刷新页面退出
+    testcase: testcases/permissions/QX006.yml
+
+-   name: QXC007:设置APP登陆完整权限-取消APP高级权限-刷新页面退出
+    testcase: testcases/permissions/QX007.yml
+
+-   name: QXC008:设置APP登陆完整权限-禁用人员-登陆APP
+    testcase: testcases/permissions/QX008.yml
+
+-   name: QXC009:设置APP登陆完整权限-登陆APP-禁用人员-刷新页面退出
+    testcase: testcases/permissions/QX009.yml
+
+-   name: QXC010:设置APP登陆完整权限-登陆APP-禁用企业-刷新页面退出
+    testcase: testcases/permissions/QX010.yml
+
+########################角色权限结束###########################
+
+
+
+########################薪资计算开始###########################
+#-   name: XZ001:新增薪资组-查看工资表-薪资档案调薪-工资表变动
+#    testcase: testcases/salary/XZ001.yml
+
+-   name: XZ002:新增薪资组-工资表调薪-薪资档案不影响
+    testcase: testcases/salary/XZ002.yml
+
+#-   name: XZ003:新增薪资组-薪资组变动-工资表变动
+#    testcase: testcases/salary/XZ003.yml
+
+-   name: XZ004:新增薪资组-查看工资表-APP总收入与工资表一致
+    testcase: testcases/salary/XZ004.yml
+
+-   name: XZ005:新增薪资组-新增增量提成-导入业绩源-查看工资
+    testcase: testcases/salary/XZ005.yml
+
+-   name: XZ006:新增薪资组-新增增利提成-导入业绩源-查看工资
+    testcase: testcases/salary/XZ006.yml
+
+-   name: XZ007:新增薪资组-无增量提成科目-无提成规则
+    testcase: testcases/salary/XZ007.yml
+
+-   name: XZ008:新增薪资组-无增量提成科目-有增量提成（实发）规则
+    testcase: testcases/salary/XZ008.yml
+
+-   name: XZ009:新增薪资组-无增量提成科目-有增量提成（年末发）规则
+    testcase: testcases/salary/XZ009.yml
+
+-   name: XZ010:新增薪资组-有增量提成科目-无提成规则-无业绩
+    testcase: testcases/salary/XZ010.yml
+
+-   name: XZ011:新增薪资组-有增量提成科目-无提成规则-有业绩
+    testcase: testcases/salary/XZ011.yml
+
+-   name: XZ012:新增薪资组-有增量提成科目-有增量提成（实发）规则-无业绩
+    testcase: testcases/salary/XZ012.yml
+
+-   name: XZ013:新增薪资组-有增量提成科目-有增量提成（实发）规则-有业绩
+    testcase: testcases/salary/XZ013.yml
+
+-   name: XZ014:新增薪资组-有增量提成科目-有增量提成（年末发）规则-无业绩
+    testcase: testcases/salary/XZ014.yml
+
+-   name: XZ015:新增薪资组-有增量提成科目-有增量提成（年末发）规则-有业绩
+    testcase: testcases/salary/XZ015.yml
+
+-   name: XZ016:新增薪资组-有增量提成科目-有增量提成（年末发）与增量提成（实发）规则-无业绩
+    testcase: testcases/salary/XZ016.yml
+
+-   name: XZ017:新增薪资组-有增量提成科目-有增量提成（年末发）与增量提成（实发）规则-有业绩
+    testcase: testcases/salary/XZ017.yml
+
+########################薪资计算结束###########################
+
+
+
+########################目标计划开始###########################
+-   name: GOAL001:导入自营业绩-查看业绩档案个人业绩与区域业绩
+    testcase: testcases/goal/GOAL001.yml
+
+-   name: GOAL002:设置本月目标计划-导入自营业绩-查看业绩档案增量业绩
+    testcase: testcases/goal/GOAL002.yml
+
+-   name: GOAL003:业务员导入常规+机会业绩-查看个人档案
+    testcase: testcases/goal/GOAL003.yml
+
+-   name: GOAL004:业务员导入常规+机会业绩-查看个人利润
+    testcase: testcases/goal/GOAL004.yml
+
+-   name: GOAL005:业务员导入常规+机会业绩-查看个人毛利额
+    testcase: testcases/goal/GOAL005.yml
+
+-   name: GOAL006:业务员导入常规+机会业绩-查看个人毛利额二级
+    testcase: testcases/goal/GOAL006.yml
+
+-   name: GOAL007:区域经理导入常规+机会业绩-查看区域经理个人档案
+    testcase: testcases/goal/GOAL007.yml
+
+-   name: GOAL008:区域经理导入常规+机会业绩-查看区域经理个人利润
+    testcase: testcases/goal/GOAL008.yml
+
+-   name: GOAL009:区域经理导入常规+机会业绩-查看区域经理个人毛利额档案
+    testcase: testcases/goal/GOAL009.yml
+
+-   name: GOAL010:区域经理导入常规+机会业绩-查看区域经理个人毛利额档案二级
+    testcase: testcases/goal/GOAL010.yml
+
+
+########################目标计划结束###########################
+
+########################单一功能合集开始###########################
+-   name: 导出功能合集
+    testcase: testcases/common/COM003.yml
+########################单一功能合集结束###########################
+
+
+########################APP详情概况开始###########################
+-   name: SUM001:人员A查看详情业绩-本月计划下发-
+    testcase: testcases/summary/SUM001.yml
+
+-   name: SUM002:人员A查看详情业绩-本月计划下发30000
+    testcase: testcases/summary/SUM002.yml
+
+-   name: SUM003:人员A查看详情业绩-同期业绩下发10000
+    testcase: testcases/summary/SUM003.yml
+
+-   name: SUM004:人员A查看详情业绩-同期业绩比对
+    testcase: testcases/summary/SUM004.yml
+
+-   name: SUM005:人员B查看详情业绩-无年度业绩目标
+    testcase: testcases/summary/SUM005.yml
+
+-   name: SUM006:人员B查看详情业绩-有年度业绩目标
+    testcase: testcases/summary/SUM006.yml
+
+-   name: SUM007:人员A查看详情业绩-年度进度
+    testcase: testcases/summary/SUM007.yml
+
+-   name: SUM008:人员A查看利润额-当前利润-无业绩无费用
+    testcase: testcases/summary/SUM008.yml
+
+-   name: SUM009:人员A查看利润额-当前利润-有业绩
+    testcase: testcases/summary/SUM009.yml
+
+-   name: SUM010:人员A查看利润额-无本月计划
+    testcase: testcases/summary/SUM010.yml
+
+-   name: SUM011:人员A查看利润额-有本月计划
+    testcase: testcases/summary/SUM011.yml
+
+-   name: SUM012:人员B查看利润额-无同期利润额
+    testcase: testcases/summary/SUM012.yml
+
+-   name: SUM013:人员A查看利润额-有同期利润额
+    testcase: testcases/summary/SUM013.yml
+
+-   name: SUM014:人员B查看详情利润额-年度总目标-无目标利润率无业绩年度目标
+    testcase: testcases/summary/SUM014.yml
+
+-   name: SUM015:人员D查看详情利润额-年度总目标-无目标利润率有业绩年度目标
+    testcase: testcases/summary/SUM015.yml
+
+-   name: SUM016:人员C查看详情利润额-年度总目标-有目标利润率无业绩年度目标
+    testcase: testcases/summary/SUM016.yml
+
+-   name: SUM017:人员A查看详情利润额-年度总目标-有目标利润率有业绩年度目标
+    testcase: testcases/summary/SUM017.yml
+
+-   name: SUM018:人员A查看详情利润率-无业绩
+    testcase: testcases/summary/SUM018.yml
+
+-   name: SUM019:人员A查看详情利润率-无个人总毛利额
+    testcase: testcases/summary/SUM019.yml
+
+-   name: SUM020:人员A查看详情利润率-有个人总毛利额有业绩
+    testcase: testcases/summary/SUM020.yml
+
+-   name: SUM021:人员A查看详情利润率本月计划--无本月计划业绩
+    testcase: testcases/summary/SUM021.yml
+
+-   name: SUM022:人员A查看详情利润率本月计划--无本月计划利润额有计划业绩
+    testcase: testcases/summary/SUM022.yml
+
+-   name: SUM023:人员A查看详情利润率本月计划--有本月计划利润额有计划业绩
+    testcase: testcases/summary/SUM023.yml
+
+-   name: SUM024:人员A查看详情利润率同期比对-无同期业绩
+    testcase: testcases/summary/SUM024.yml
+
+-   name: SUM025:人员A查看详情利润率同期比对-无同期利润额有同期业绩
+    testcase: testcases/summary/SUM025.yml
+
+-   name: SUM026:人员A查看详情利润率同期比对-有同期利润额有同期业绩
+    testcase: testcases/summary/SUM026.yml
+
+-   name: SUM027:人员B查看详情利润率年度进度-无目标利润率
+    testcase: testcases/summary/SUM027.yml
+
+-   name: SUM028:人员A查看详情利润率年度进度-有目标利润率
+    testcase: testcases/summary/SUM028.yml
+
+-   name: SUM029:人员A查看详情费用额-当前无实际费用
+    testcase: testcases/summary/SUM029.yml
+
+-   name: SUM030:人员A查看详情费用额-当前有实际费用
+    testcase: testcases/summary/SUM030.yml
+
+-   name: SUM031:人员A查看详情费用额本月计划-无计划费用率
+    testcase: testcases/summary/SUM031.yml
+
+-   name: SUM032:人员A查看详情费用额本月计划-有计划费用率-有当前业绩且大于计划业绩
+    testcase: testcases/summary/SUM032.yml
+
+-   name: SUM033:人员A查看详情费用额本月计划-有计划费用率-当前业绩小于计划业绩
+    testcase: testcases/summary/SUM033.yml
+
+-   name: SUM034:人员B查看详情费用额同期比对-无同期业绩无同期费用率
+    testcase: testcases/summary/SUM034.yml
+
+-   name: SUM035:人员D查看详情费用额同期比对-有同期业绩无同期费用率
+    testcase: testcases/summary/SUM035.yml
+
+-   name: SUM036:人员C查看详情费用额同期比对-无同期业绩有同期费用率
+    testcase: testcases/summary/SUM036.yml
+
+-   name: SUM037:人员A查看详情费用额同期比对-有同期业绩有同期费用率
+    testcase: testcases/summary/SUM037.yml
+
+-   name: SUM038:人员B查看详情费用额年度进度-无年度业绩目标无年度费用率目标
+    testcase: testcases/summary/SUM038.yml
+
+-   name: SUM039:人员C查看详情费用额年度进度-无年度业绩目标有年度费用率目标
+    testcase: testcases/summary/SUM039.yml
+
+-   name: SUM040:人员A查看详情费用额年度进度-有年度业绩目标有年度费用率目标
+    testcase: testcases/summary/SUM040.yml
+
+-   name: SUM041:人员A查看详情费用率-无费用
+    testcase: testcases/summary/SUM041.yml
+
+-   name: SUM042:人员A查看详情费用率-有费用
+    testcase: testcases/summary/SUM042.yml
+
+-   name: SUM043:人员A查看详情费用率-无本月计划
+    testcase: testcases/summary/SUM043.yml
+
+-   name: SUM044:人员A查看详情费用率-有本月计划
+    testcase: testcases/summary/SUM044.yml
+
+-   name: SUM045:人员B查看详情费用率-无同期费用率
+    testcase: testcases/summary/SUM045.yml
+
+-   name: SUM046:人员A查看详情费用率-有同期费用率
+    testcase: testcases/summary/SUM046.yml
+
+-   name: SUM047:人员B查看详情费用率-无目标费用率
+    testcase: testcases/summary/SUM047.yml
+
+-   name: SUM048:人员A查看详情费用率-有目标费用率
+    testcase: testcases/summary/SUM048.yml
+########################APP详情概况结束###########################
+
+
+########################APP品项开始###########################
+-   name: PX001:品项首页查看本年度热销品项第一的销售额和毛利额
+    testcase: testcases/product/PX001.yml
+
+-   name: PX002:品项首页查看去年热销品项第一的销售额和毛利额
+    testcase: testcases/product/PX002.yml
+
+-   name: PX003:品项首页查看近三年热销品项第一的销售额和毛利额
+    testcase: testcases/product/PX003.yml
+
+-   name: PX004:品项列表查看本年度毛利额第一的产品
+    testcase: testcases/product/PX004.yml
+
+-   name: PX005:品项列表查看去年毛利额第一的产品
+    testcase: testcases/product/PX005.yml
+
+-   name: PX006:品项列表查看近三年毛利额第一的产品
+    testcase: testcases/product/PX006.yml
+
+-   name: PX007:品项列表查看本年度多个大区排序第一的销售额和毛利额
+    testcase: testcases/product/PX007.yml
+
+-   name: PX008:品项列表查看本年度仅看自己排序第一的销售额和数量
+    testcase: testcases/product/PX008.yml
+########################APP品项结束###########################

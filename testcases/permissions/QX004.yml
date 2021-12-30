@@ -1,0 +1,26 @@
+config:
+    name: QX004:企业平台勾选APP菜单-子系统菜单+高级权限-APP登陆显示未配置页面
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(qxphone2)}
+
+
+teststeps:
+-   name: 设置登陆APP完整权限
+    testcase: testcases/common/COM001.yml
+
+
+-   name: 登陆APP
+    testcase: testcases/common/COM002.yml
+
+-   name: 获取用户数据
+    api: api/app_api/userinfo_api/userinfo_api.yml
+    extract:
+        data: content.data
+    validate:
+    -   eq:
+#            - ${get_isNull($data)}
+            - ${get_isNull($data,user,districts)}
+            - 0
+
+

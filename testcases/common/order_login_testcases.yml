@@ -1,0 +1,29 @@
+config:
+    name: login_testcases
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: 13800000032 #${ENV(adminphone)}
+
+teststeps:
+-   name: $phone 登录系统
+#    api: api/app_api/login_api/login_api.yml
+    api: api/app_api/login_api/login_order_api.yml
+    teardown_hooks:
+        - ${teardown_hook_get_authcode($response)}
+    validate:
+        - eq:
+              - content.msg
+              - ok
+
+-   name: $phone 获取accessToken
+    api: api/app_api/login_api/accessToken_order.yml
+    teardown_hooks:
+        - ${teardown_hook_get_accesstoken($response)}
+    validate:
+        - eq:
+              - content.msg
+              - ok
+
+-   name: $phone 获取userinfo
+    api: api/app_api/userinfo_api/order_getUser.yml
+

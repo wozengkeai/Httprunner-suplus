@@ -1,0 +1,87 @@
+name: 下单/v1/order/addOrder
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+#    var_access_token: ${get_accesstoken()}
+    var_access_token: fXcNdM4BS8bnZyA5H8zeKQD2k6WTc5YS
+    sign: ${make_sign($currtime, $uuid, $var_access_token)}
+#times: 10
+request:
+    headers:
+        Content-Type: application/json
+        User-Agent: SuplusTest/160001 CFNetwork/1209 Darwin/20.2.0
+        X-MMM-AccessToken: $var_access_token
+        X-MMM-AppName: com.mmm.suplus.orders
+        X-MMM-AppProject: SuplusOrders
+        X-MMM-DeviceType: '0'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 1.6.0
+    json:
+        approves:
+        -   approveType: 2
+            approveUsers:
+            -   name: 薪资50
+                uid: 3262795775635968
+            approveWay: 1
+            isDefault: 1
+            roleId: 0
+        -   approveType: 2
+            approveUsers:
+            -   name: 薪资52
+                uid: 3262947924314624
+            approveWay: 1
+            isDefault: 1
+            roleId: 0
+        ccLists: []
+        companyId: 382
+        countSaleType:
+        -   typeName: 正常
+            typeNum: 1
+        customerAddress:
+            addressId: 3987
+            receiverAddress: '99'
+            receiverName: A8
+            receiverPhone: '13659874562'
+        customerId: 3905271874371584
+        materialsInfo: []
+        materialsRate: 0
+        materialsTotal: 0
+        orderId: 0
+        productInfo:
+        -   categoryId: -1
+            createTime: 0
+            id: 3719875629563904
+            imgs: []
+            isNew: 0
+            name: 鸡翅7
+            normalGitStr: 0+0
+            num: 1
+            price: 18.5
+            productStatus: 1
+            regularPrice: 18.5
+            remark: ''
+            saleType:
+            -   typeName: 正常
+                typeNum: 1
+            seriesName: 小样
+            simpleName: 鸡翅7
+            spec: 72g
+            storeNum: A00100000000000000000000000007
+            stores: []
+            unit: 千克
+            ztName: '001'
+        rateScope:
+            fromMatRate: 1
+            toMatRate: 5
+        remark: 备注${get_randomstring(4)}
+        requireDate: 1608601984000
+        salesmanId: 3252348558521088
+        total: 18.5
+    method: POST
+    url: http://suplus-app-gateway-test.fjmaimaimai.com/v1/order/addOrder
+validate:
+-   eq:
+    - content.msg
+    - ok

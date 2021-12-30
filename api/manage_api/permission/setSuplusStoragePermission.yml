@@ -1,0 +1,39 @@
+name: 设置销售单导航APP高级/enterprise/setSuplusStoragePermission
+base_url: ${ENV(base_suplus_url)}
+variables:
+#    checkManage: 0
+#    checkSaleman: 1
+#     3指定可看 4查看自己负责的 5查看所属区域以及所属下级区域
+    check: 4
+    sorts:
+        -
+    column:
+        customer:
+            performance: 0
+            contract: 0
+            cost: 0
+            costRate: 0
+            profit: 0
+    name: suplusSale
+    roleId: 942
+request:
+    headers:
+        Authorization: ${get_m_accesstoken()}
+        Content-Type: application/json; charset=UTF-8
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    json:
+#        checkManage: $checkManage
+#        checkSaleman: $checkSaleman
+        check: $check
+        sorts: $sorts
+        column: $column
+        name: $name
+        roleId: $roleId
+    method: POST
+    url: /enterprise/setSuplusStoragePermission
+validate:
+-   eq:
+    - content.msg
+    - ok

@@ -1,0 +1,43 @@
+name: 账号登录:/auth/loginAggregate
+base_url: ${ENV(base_ucenter_url)}
+verify: False
+variables:
+    currtime: ${make_time()}
+    uuid: ${make_uuid()}
+    access_token: ''
+    sign: ${make_sign($currtime, $uuid,$access_token)}
+    grantType: signInPassword
+    phone: ${ENV(adminphone)}
+    password: 7c4a8d09ca3762af61e59520943dc26494f8941b
+    Type: 1
+    msg: ok
+#teardown_hooks:
+#    - ${teardown_hook_get_authcode($response)}
+request:
+    headers:
+        Content-Type: application/json;charset=utf-8
+        User-Agent: okhttp/3.12.3
+        X-MMM-AccessToken: $access_token
+        X-MMM-DeviceType: '1'
+        X-MMM-Sign: $sign
+        X-MMM-Timestamp: $currtime
+        X-MMM-Uuid: $uuid
+        X-MMM-Version: 0.9.0
+    json:
+        grantType: $grantType
+        password: $password
+        phone: $phone
+        clientId: lks3Z8Ncn2j
+#        captcha:
+#        credentials:
+    method: POST
+    url: /ucenter/v2/auth/loginAggregate
+extract:
+    cuid: content.data.cuid
+    credentials: content.data.credentials
+    muid: content.data.companys.0.muid
+    companyData: content.data.companys
+validate:
+-   eq:
+    - content.msg
+    - $msg

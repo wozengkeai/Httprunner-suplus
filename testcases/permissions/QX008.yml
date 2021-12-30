@@ -1,0 +1,38 @@
+config:
+    name: QX008：设置APP登陆完整权限-禁用人员-登陆APP
+    base_url: ${ENV(base_url)}
+    variables:
+        phone: ${ENV(qxphone1)}
+#        uid: ${get_uid_from_database($phone)}
+
+
+teststeps:
+-   name: 设置登陆APP完整权限
+    testcase: testcases/common/COM001.yml
+
+-   name: 主管理员登录企业平台
+    testcase: testcases/common/business_login_testcases.yml
+    variables:
+        phone: ${ENV(adminphone)}
+
+-   name: 禁用人员
+    api: api/manage_api/business_api/forbidUser.yml
+    variables:
+        status: 2
+
+-   name: 登陆统一用户中心
+    api: api/app_api/login_api/ucenter_login_api_forcheck.yml
+    variables:
+        phone: $phone
+    validate:
+      - eq:
+          - content.code
+          - 10001
+      - eq:
+          - content.msg
+          - 用户不存在或者禁用
+
+-   name: 启用人员
+    api: api/manage_api/business_api/forbidUser.yml
+    variables:
+        status: 1
